@@ -3,29 +3,22 @@ package com.oursaas.autolog;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import java.io.FileWriter;
+import java.nio.file.Paths;
 import java.util.Map;
 
 public class LogSender {
-    private static final String LOG_ENDPOINT = "https://log-api.oursaas.com/collect";
-
     public void send(Map<String, Object> logData) {
         try {
-            HttpClient client = HttpClient.newHttpClient();
+            String desktop = System.getProperty("user.home") + "/Desktop";
+            String logPath = Paths.get(desktop, "autologs.txt").toString();
             String json = new ObjectMapper().writeValueAsString(logData);
 
-            HttpRequest req = HttpRequest.newBuilder()
-                    .uri(URI.create(LOG_ENDPOINT))
-                    .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(json))
-                    .build();
-
-            client.sendAsync(req, HttpResponse.BodyHandlers.discarding());
+            try (FileWriter fw = new FileWriter(logPath, true)) {
+                fw.write(json + System.lineSeparator());
+            }
         } catch (Exception e) {
-            // fail silently
+            // ignore
         }
     }
 }

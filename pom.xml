@@ -9,6 +9,21 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>Log SaaS Starter</name>
+    <description>Auto-logging filter that writes to Desktop for testing.</description>
+    <url>https://github.com/yourusername/log-saas-starter</url>
+
+    <scm>
+        <url>https://github.com/yourusername/log-saas-starter</url>
+        <connection>scm:git:git://github.com/yourusername/log-saas-starter.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/yourusername/log-saas-starter.git</developerConnection>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>yourusername</id>
+            <name>Your Name</name>
+        </developer>
+    </developers>
 
     <dependencies>
         <dependency>
