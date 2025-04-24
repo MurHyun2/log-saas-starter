@@ -1,12 +1,21 @@
 <configuration>
-    <appender name="DESKTOP" class="ch.qos.logback.core.FileAppender">
+
+    <appender name="DESKTOP_ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${user.home}/Desktop/desktop-logger.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${user.home}/Desktop/archive/desktop-logger.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
     <root level="INFO">
-        <appender-ref ref="DESKTOP"/>
+        <appender-ref ref="DESKTOP_ROLLING"/>
     </root>
+
 </configuration>
